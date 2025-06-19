@@ -14,7 +14,7 @@ class logData(BaseModel):
 def read_root():
    return {"message": "Deflection ML API is running"}
 
-@app.post("/predict")
+@app.post("/ml/predict")
 def predict_threat(data: logData):
    fake_score = np.random.rand()
 
@@ -25,7 +25,7 @@ def predict_threat(data: logData):
       threat_level = "Medium"
 
    return {
-      "ip:": data.ip,
+      "ip": data.ip,
       "score": round(float(fake_score), 2),
       "threat_level": threat_level,
       "recommendation": "Block IP" if threat_level == "High" else "Monitor"
