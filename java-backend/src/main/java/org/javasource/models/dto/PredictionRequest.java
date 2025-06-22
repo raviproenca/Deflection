@@ -1,11 +1,11 @@
-package org.javasource.config;
+package org.javasource.models.dto;
 
 import lombok.Data;
 
 @Data
 public class PredictionRequest {
     private String ip;
-    private int login_attempts;
+    private int loginAttempts;
     private String country;
-    private String time_of_day;
+    private String timeOfDay;
 }

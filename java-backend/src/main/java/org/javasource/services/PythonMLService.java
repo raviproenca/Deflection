@@ -1,6 +1,6 @@
 package org.javasource.services;
 
-import org.javasource.config.PredictionRequest;
+import org.javasource.models.dto.PredictionRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;

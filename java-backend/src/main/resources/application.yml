@@ -5,15 +5,28 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-  jpa:
+jpa:
+  hibernate:
+    ddl-auto: validate
+  show-sql: true
+  properties:
     hibernate:
-      ddl-auto: validate
-    show-sql: true
-    properties:
-      hibernate:
-        default_schema: deflectiondb
-        format_sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+      default_schema: deflectiondb
+      format_sql: true
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+virustotal:
+  api:
+    key: ${VIRUSTOTAL_API_KEY}
+
+abuseipdb:
+  api:
+    key: ${ABUSEIPDB_API_KEY}
+
+greynoise:
+  api:
+    key: ${GREYNOISE_API_KEY}
+
 
 server:
   port: 8080

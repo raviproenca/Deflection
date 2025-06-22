@@ -1,4 +1,4 @@
-package org.javasource.models;
+package org.javasource.models.entity;
 
 import jakarta.persistence.*;
 

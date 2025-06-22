@@ -1,6 +1,6 @@
 package org.javasource.repositories;
 
-import org.javasource.models.User;
+import org.javasource.models.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

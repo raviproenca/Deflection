@@ -1,6 +1,6 @@
 package org.javasource.services;
 
-import org.javasource.models.User;
+import org.javasource.models.entity.User;
 import org.javasource.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

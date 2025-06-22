@@ -1,72 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/screens/register_screen.dart';
 
-void main() {
-  runApp(const DeflectionApp());
-}
-
-class DeflectionApp extends StatelessWidget {
-  const DeflectionApp({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Deflection Cybersecurity',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: 'Roboto',
-        scaffoldBackgroundColor: const Color(0xFF0F172A),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0F172A),
-          elevation: 0,
-        ),
-      ),
-      home: const LoginScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
-  void _login() {
+  void _register() {
     String email = _emailController.text;
     String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
 
-    // Aqui você faz a integração com seu backend
-    print('Email: $email');
-    print('Password: $password');
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("The passwords aren't the same")),
+      );
+      return;
+    }
+
+    print('Registering: $email');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Create account')),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // LOGO ou TÍTULO
               const Icon(
                 Icons.shield_outlined,
                 color: Colors.deepPurple,
-                size: 100,
+                size: 80,
               ),
               const SizedBox(height: 16),
               const Text(
                 'DEFLECTION',
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 26,
                   color: Colors.deepPurple,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
@@ -74,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 40),
 
-              // EMAIL FIELD
+              // Email
               TextField(
                 controller: _emailController,
                 style: const TextStyle(color: Colors.white),
@@ -94,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
 
-              // PASSWORD FIELD
+              // Password
               TextField(
                 controller: _passwordController,
                 obscureText: true,
@@ -102,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color(0xFF1E293B),
-                  labelText: 'Senha',
+                  labelText: 'Password',
                   labelStyle: const TextStyle(color: Colors.white70),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -113,27 +93,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
 
-              // Forgot Password
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Esqueceu a senha?',
-                    style: TextStyle(color: Color(0xFF38BDF8)),
+              // Confirm Password
+              TextField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: const Color(0xFF1E293B),
+                  labelText: 'Confirm password',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: Colors.white70,
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
 
-              const SizedBox(height: 20),
-
-              // LOGIN BUTTON
+              // Create account
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _login,
+                  onPressed: _register,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF38BDF8),
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -142,39 +129,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   child: const Text(
-                    'ENTRAR',
+                    'CREATE ACCOUNT',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
 
-              // Divider
-              Row(
-                children: const [
-                  Expanded(child: Divider(color: Colors.white24)),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text('ou', style: TextStyle(color: Colors.white54)),
-                  ),
-                  Expanded(child: Divider(color: Colors.white24)),
-                ],
-              ),
-              const SizedBox(height: 20),
-
-              // CREATE ACCOUNT
+              // Voltar para login
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RegisterScreen(),
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
                 child: const Text(
-                  'Criar nova conta',
+                  'I already had an account',
                   style: TextStyle(color: Color(0xFF38BDF8)),
                 ),
               ),

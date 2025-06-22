@@ -1,6 +1,6 @@
 package org.javasource.controllers;
 
-import org.javasource.config.PredictionRequest;
+import org.javasource.models.dto.PredictionRequest;
 import org.javasource.services.PythonMLService;
 import org.springframework.web.bind.annotation.*;
 

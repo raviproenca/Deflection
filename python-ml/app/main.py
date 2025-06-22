@@ -6,9 +6,9 @@ app = FastAPI(title="Deflection")
 
 class logData(BaseModel):
    ip: str
-   login_attempts: int
+   loginAttempts: int
    country: str
-   time_of_day: str
+   timeOfDay: str
 
 @app.get("/")
 def read_root():
