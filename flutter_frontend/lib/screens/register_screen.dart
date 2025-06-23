@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/models/users_requisition.dart';
+import 'package:flutter_frontend/screens/home_screen.dart';
+import 'package:flutter_frontend/services/api_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -8,11 +11,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _apiService = ApiService();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  void _register() {
+  Future<Map<String, dynamic>> _register() async {
+    String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
@@ -21,10 +27,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("The passwords aren't the same")),
       );
-      return;
+    } else if (name == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Fields shouldn't be empty.")),
+      );
     }
 
-    print('Registering: $email');
+    final request = UserRequest(name: name, email: email, password: password);
+
+    final response = await _apiService.newUser(request);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+    );
+
+    return response;
   }
 
   @override
@@ -53,6 +71,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 40),
+
+              // Name
+              TextField(
+                controller: _nameController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: const Color(0xFF1E293B),
+                  labelText: 'Name',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  prefixIcon: const Icon(Icons.abc, color: Colors.white70),
+                ),
+              ),
+              const SizedBox(height: 20),
 
               // Email
               TextField(
