@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/models/users_requisition.dart';
+import 'package:flutter_frontend/models/users_register.dart';
 import 'package:flutter_frontend/screens/home_screen.dart';
 import 'package:flutter_frontend/services/api_service.dart';
 
@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
     );
 
     return response;

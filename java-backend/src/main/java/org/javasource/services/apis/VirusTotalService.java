@@ -1,30 +1,26 @@
-package org.javasource.services;
+package org.javasource.services.apis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
 
 @Service
-public class AbuseIpDbService {
+public class VirusTotalService {
 
     private final WebClient webClient;
 
-    public AbuseIpDbService(@Value("${abuseipdb.api.key}") String apiKey) {
+    public VirusTotalService(@Value("${virustotal.api.key}") String apiKey) {
         this.webClient = WebClient.builder()
-                .baseUrl("https://api.abuseipdb.com")
-                .defaultHeader("Key", apiKey)
+                .baseUrl("https://www.virustotal.com/api/v3")
+                .defaultHeader("x-apikey", apiKey)
                 .defaultHeader("Accept", "application/json")
                 .build();
+
     }
 
     public String checkIp(String ip) {
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/api/v2/check")
-                        .queryParam("ipAddress", ip)
-                        .queryParam("maxAgeInDays", 90)
-                        .build())
+                .uri("/ip_addresses/{ip}", ip)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();

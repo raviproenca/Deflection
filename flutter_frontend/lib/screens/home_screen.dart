@@ -1,50 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/models/users_login.dart';
 import 'package:flutter_frontend/screens/register_screen.dart';
-
-void main() {
-  runApp(const DeflectionApp());
-}
-
-class DeflectionApp extends StatelessWidget {
-  const DeflectionApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Deflection Cybersecurity',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: 'Roboto',
-        scaffoldBackgroundColor: const Color(0xFF0F172A),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0F172A),
-          elevation: 0,
-        ),
-      ),
-      home: const LoginScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+import 'package:flutter_frontend/screens/welcome_screen.dart';
+import 'package:flutter_frontend/services/api_service.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _apiService = ApiService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _login() {
+  Future<void> _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    // Aqui você faz a integração com seu backend
-    print('Email: $email');
-    print('Password: $password');
+    try {
+      final request = UserLogin(email: email, password: password);
+      final user = await _apiService.getUser(request);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WelcomeScreen(userName: user.name),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Login failed: $e')));
+    }
   }
 
   @override
