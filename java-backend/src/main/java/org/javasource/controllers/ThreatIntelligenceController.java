@@ -1,7 +1,9 @@
 package org.javasource.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.javasource.models.dto.IpAnalysisDTO;
+import org.javasource.models.dto.ipAnalysis.IpAnalysisDTO;
+import org.javasource.models.dto.PredictionResponse;
+import org.javasource.services.PythonMLService;
 import org.javasource.services.ThreatIntelligenceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +14,14 @@ import org.springframework.web.bind.annotation.*;
 public class ThreatIntelligenceController {
 
     private final ThreatIntelligenceService threatIntelligenceService;
+    private final PythonMLService pythonMLService;
 
     @GetMapping("/check/{ip}")
-    public ResponseEntity<IpAnalysisDTO> checkIp(@PathVariable String ip) {
+    public ResponseEntity<PredictionResponse> checkIp(@PathVariable String ip) {
         IpAnalysisDTO result = threatIntelligenceService.checkIpAcrossAll(ip);
-        return ResponseEntity.ok(result);
+        PredictionResponse prediction = pythonMLService.callPython(result);
+        return ResponseEntity.ok(prediction);
     }
 }
+
+

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.javasource.models.dto.*;
 import org.javasource.models.dto.abuseIPDB.AbuseipdbDTO;
+import org.javasource.models.dto.ipAnalysis.IpAnalysisAssembler;
+import org.javasource.models.dto.ipAnalysis.IpAnalysisDTO;
 import org.javasource.models.dto.virusTotal.VirusTotalDTO;
 import org.javasource.services.apis.AbuseIpDbService;
 import org.javasource.services.apis.GreyNoiseService;

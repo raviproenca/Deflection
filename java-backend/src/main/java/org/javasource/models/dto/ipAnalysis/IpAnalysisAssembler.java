@@ -1,5 +1,6 @@
-package org.javasource.models.dto;
+package org.javasource.models.dto.ipAnalysis;
 
+import org.javasource.models.dto.GreyNoiseDTO;
 import org.javasource.models.dto.abuseIPDB.AbuseipdbDTO;
 import org.javasource.models.dto.virusTotal.VirusTotalDTO;
 

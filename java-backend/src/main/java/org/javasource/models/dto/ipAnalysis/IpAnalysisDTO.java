@@ -1,4 +1,4 @@
-package org.javasource.models.dto;
+package org.javasource.models.dto.ipAnalysis;
 
 import lombok.Data;
 

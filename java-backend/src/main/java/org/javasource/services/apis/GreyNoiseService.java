@@ -41,17 +41,7 @@ public class GreyNoiseService {
                     .onStatus(HttpStatusCode::is5xxServerError,
                             response -> response.bodyToMono(String.class)
                                     .map(body -> new ExternalApiException("Server error (5xx): " + body)))
-                    .bodyToMono(String.class)
-                    .doOnNext(json -> log.info("GreyNoise RAW response: {}", json))
-                    .map(json -> {
-                        try {
-                            ObjectMapper mapper = new ObjectMapper();
-                            return mapper.readValue(json, GreyNoiseDTO.class);
-                        } catch (Exception e) {
-                            log.error("Erro ao desserializar JSON do GreyNoise: {}", e.getMessage(), e);
-                            throw new ExternalApiException("Erro ao desserializar resposta da GreyNoise", e);
-                        }
-                    })
+                    .bodyToMono(GreyNoiseDTO.class)
                     .block(timeout);
 
         } catch (ExternalApiException e) {
