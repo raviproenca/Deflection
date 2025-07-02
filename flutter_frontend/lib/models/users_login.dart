@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class UserLogin {
   final String email;

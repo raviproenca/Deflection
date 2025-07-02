@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_frontend/models/users_register.dart';
 import 'package:flutter_frontend/models/users_login.dart';
-import 'package:flutter_frontend/models/users_response';
+import 'package:flutter_frontend/models/users_response.dart';
 import 'package:http/http.dart' as http;
 import '../models/prediction_request.dart';
 
