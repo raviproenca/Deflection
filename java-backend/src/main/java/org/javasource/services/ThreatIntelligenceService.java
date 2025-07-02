@@ -1,14 +1,20 @@
 package org.javasource.services;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.javasource.models.dto.*;
+import org.javasource.models.dto.abuseIPDB.AbuseipdbDTO;
+import org.javasource.models.dto.ipAnalysis.IpAnalysisAssembler;
+import org.javasource.models.dto.ipAnalysis.IpAnalysisDTO;
+import org.javasource.models.dto.virusTotal.VirusTotalDTO;
 import org.javasource.services.apis.AbuseIpDbService;
 import org.javasource.services.apis.GreyNoiseService;
 import org.javasource.services.apis.VirusTotalService;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
 import java.lang.String;
 
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class ThreatIntelligenceService {
 
@@ -16,20 +22,11 @@ public class ThreatIntelligenceService {
     private final GreyNoiseService greyNoiseService;
     private final VirusTotalService virusTotalService;
 
-    public ThreatIntelligenceService(AbuseIpDbService abuseIpDbService,
-                                     GreyNoiseService greyNoiseService,
-                                     VirusTotalService virusTotalService) {
-        this.abuseIpDbService = abuseIpDbService;
-        this.greyNoiseService = greyNoiseService;
-        this.virusTotalService = virusTotalService;
-    }
+    public IpAnalysisDTO checkIpAcrossAll(String ip) {
+         VirusTotalDTO virusTotalResult = virusTotalService.checkIp(ip);
+         AbuseipdbDTO abuseIpDbResult = abuseIpDbService.checkIp(ip);
+         GreyNoiseDTO greyNoiseResult = greyNoiseService.checkIp(ip);
 
-    public List<String> checkIpAcrossAll(String ip) {
-         String virusTotalResult = virusTotalService.checkIp(ip);
-         String abuseIpDbResult = abuseIpDbService.checkIp(ip);
-         String greyNoiseResult = greyNoiseService.checkIp(ip);
-
-         return Arrays.asList(virusTotalResult, abuseIpDbResult, greyNoiseResult);
-
+         return IpAnalysisAssembler.assemble(virusTotalResult, abuseIpDbResult, greyNoiseResult);
     }
 }

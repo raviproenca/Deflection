@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class UserRequest {
   final String name;

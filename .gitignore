@@ -1,0 +1,131 @@
+# ========================
+# .gitignore consolidado para projeto Multi-stack
+# Java (Spring Boot), Flutter/Dart, Python (FastAPI)
+# ========================
+
+# ========================
+# Sistema Operacional / Gerais
+# ========================
+*.env
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# ========================
+# IDEs e Ferramentas
+# ========================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+out/
+gen/
+.atom/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# ========================
+# Java / Maven / Spring Boot
+# ========================
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/wrapper/maven-wrapper.jar
+*.log
+logs/
+
+# Não ignore arquivos de configuração da aplicação
+!src/main/resources/application*.properties
+!src/main/resources/application*.yml
+
+# ========================
+# Python / FastAPI
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+env/
+*/.venv/
+*/venv/
+.tox/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.Python
+*.whl
+dist/
+.build/
+coverage.xml
+celerybeat-schedule
+
+# ========================
+# Flutter / Dart / Android / iOS / Web
+# ========================
+# Ferramentas e cache
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/doc/api/
+
+# Build e arquivos temporários
+build/
+**/build/
+
+# Android
+**/android/.gradle/
+**/android/local.properties
+
+# iOS/macOS
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral/
+**/linux/flutter/ephemeral/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/Flutter-Generated.xcconfig
+**/ios/.symlinks/
+**/ios/Pods/
+**/ios/DerivedData/
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+**/macos/DerivedData/
+
+# Linux/Windows/Web
+**/linux/build/
+**/macos/build/
+**/windows/build/
+**/web/build/
+
+# Flutter símbolo/obfuscação
+app.*.symbols
+app.*.map.json
+
+# ========================
+# Outros Arquivos Comuns
+# ========================
+*.swp
+*.bak
+*.tmp
+*.log
+*.lock
+*.class
+*.rej
+*.orig
+*.sublime-project
+*.sublime-workspace
+
